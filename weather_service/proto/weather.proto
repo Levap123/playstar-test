@@ -5,9 +5,23 @@ package proto;
 option go_package = "./;proto";
 
 service WeatherSerice {
-    // rpc GetWeather() returns 
+    rpc GetWeather(GetWeatherRequest) returns (GetWeatherResponse); 
 }
 
-message GetWeather {
-    
+message GetWeatherRequest {
+    float latitude = 1;  
+    float longitude = 2;
 }
+
+message GetWeatherResponse {
+    float temperature = 1;
+    float temperature_apparent = 2;
+    uint64 humidity = 3;
+    uint64 precipitation_probability = 4;
+}
+// type Weather struct {
+// 	Temperature              float32 `json:"temperature"`
+// 	TemperatureApparent      float32 `json:"temperatureApparent"`
+// 	Humidity                 int     `json:"humidity"`
+// 	PrecipitationProbability int     `json:"precipitationProbability"`
+// }
