@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// WeatherSericeClient is the client API for WeatherSerice service.
+// WeatherServiceClient is the client API for WeatherService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type WeatherSericeClient interface {
+type WeatherServiceClient interface {
 	GetWeather(ctx context.Context, in *GetWeatherRequest, opts ...grpc.CallOption) (*GetWeatherResponse, error)
 }
 
-type weatherSericeClient struct {
+type weatherServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewWeatherSericeClient(cc grpc.ClientConnInterface) WeatherSericeClient {
-	return &weatherSericeClient{cc}
+func NewWeatherServiceClient(cc grpc.ClientConnInterface) WeatherServiceClient {
+	return &weatherServiceClient{cc}
 }
 
-func (c *weatherSericeClient) GetWeather(ctx context.Context, in *GetWeatherRequest, opts ...grpc.CallOption) (*GetWeatherResponse, error) {
+func (c *weatherServiceClient) GetWeather(ctx context.Context, in *GetWeatherRequest, opts ...grpc.CallOption) (*GetWeatherResponse, error) {
 	out := new(GetWeatherResponse)
-	err := c.cc.Invoke(ctx, "/proto.WeatherSerice/GetWeather", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/proto.WeatherService/GetWeather", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// WeatherSericeServer is the server API for WeatherSerice service.
-// All implementations must embed UnimplementedWeatherSericeServer
+// WeatherServiceServer is the server API for WeatherService service.
+// All implementations must embed UnimplementedWeatherServiceServer
 // for forward compatibility
-type WeatherSericeServer interface {
+type WeatherServiceServer interface {
 	GetWeather(context.Context, *GetWeatherRequest) (*GetWeatherResponse, error)
-	mustEmbedUnimplementedWeatherSericeServer()
+	mustEmbedUnimplementedWeatherServiceServer()
 }
 
-// UnimplementedWeatherSericeServer must be embedded to have forward compatible implementations.
-type UnimplementedWeatherSericeServer struct {
+// UnimplementedWeatherServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedWeatherServiceServer struct {
 }
 
-func (UnimplementedWeatherSericeServer) GetWeather(context.Context, *GetWeatherRequest) (*GetWeatherResponse, error) {
+func (UnimplementedWeatherServiceServer) GetWeather(context.Context, *GetWeatherRequest) (*GetWeatherResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWeather not implemented")
 }
-func (UnimplementedWeatherSericeServer) mustEmbedUnimplementedWeatherSericeServer() {}
+func (UnimplementedWeatherServiceServer) mustEmbedUnimplementedWeatherServiceServer() {}
 
-// UnsafeWeatherSericeServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to WeatherSericeServer will
+// UnsafeWeatherServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to WeatherServiceServer will
 // result in compilation errors.
-type UnsafeWeatherSericeServer interface {
-	mustEmbedUnimplementedWeatherSericeServer()
+type UnsafeWeatherServiceServer interface {
+	mustEmbedUnimplementedWeatherServiceServer()
 }
 
-func RegisterWeatherSericeServer(s grpc.ServiceRegistrar, srv WeatherSericeServer) {
-	s.RegisterService(&WeatherSerice_ServiceDesc, srv)
+func RegisterWeatherServiceServer(s grpc.ServiceRegistrar, srv WeatherServiceServer) {
+	s.RegisterService(&WeatherService_ServiceDesc, srv)
 }
 
-func _WeatherSerice_GetWeather_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _WeatherService_GetWeather_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetWeatherRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WeatherSericeServer).GetWeather(ctx, in)
+		return srv.(WeatherServiceServer).GetWeather(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.WeatherSerice/GetWeather",
+		FullMethod: "/proto.WeatherService/GetWeather",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WeatherSericeServer).GetWeather(ctx, req.(*GetWeatherRequest))
+		return srv.(WeatherServiceServer).GetWeather(ctx, req.(*GetWeatherRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// WeatherSerice_ServiceDesc is the grpc.ServiceDesc for WeatherSerice service.
+// WeatherService_ServiceDesc is the grpc.ServiceDesc for WeatherService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var WeatherSerice_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.WeatherSerice",
-	HandlerType: (*WeatherSericeServer)(nil),
+var WeatherService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "proto.WeatherService",
+	HandlerType: (*WeatherServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetWeather",
-			Handler:    _WeatherSerice_GetWeather_Handler,
+			Handler:    _WeatherService_GetWeather_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
