@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./;proto";
+
+service WeatherSerice {
+    // rpc GetWeather() returns 
+}
+
+message GetWeather {
+    
+}
