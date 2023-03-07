@@ -11,12 +11,14 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-type CityHadnler struct {
+type CityHandler struct {
 	proto.UnimplementedCityServiceServer
 	cc *apiclients.CoordinatesClient
 }
 
-func (h *CityHadnler) GetCity(ctx context.Context, req *proto.GetCityRequest) (*proto.GetCityResponse, error) {
+
+
+func (h *CityHandler) GetCity(ctx context.Context, req *proto.GetCityRequest) (*proto.GetCityResponse, error) {
 	reqCtx, cancel := context.WithTimeout(ctx, time.Second)
 	defer cancel()
 
