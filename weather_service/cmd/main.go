@@ -12,6 +12,7 @@ import (
 
 	apiclients "github.com/Levap123/playstar-test/weather_service/internal/api_clients"
 	"github.com/Levap123/playstar-test/weather_service/internal/configs"
+	"github.com/Levap123/playstar-test/weather_service/internal/validator"
 	"github.com/Levap123/playstar-test/weather_service/internal/weather"
 	"github.com/Levap123/playstar-test/weather_service/proto"
 	"google.golang.org/grpc"
@@ -44,7 +45,8 @@ func main() {
 	weatherCl := apiclients.NewWeatherClient(cfg.WeatherApi.Key, wclient)
 	cityCl := apiclients.NewCityClient(connCitysrv)
 
-	handler := weather.NewWeatherHandler(cityCl, weatherCl)
+	validator := validator.New()
+	handler := weather.NewWeatherHandler(cityCl, weatherCl, validator)
 
 	listener, err := net.Listen("tcp", cfg.Server.Addr)
 	if err != nil {
