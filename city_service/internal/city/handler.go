@@ -16,7 +16,11 @@ type CityHandler struct {
 	cc *apiclients.CoordinatesClient
 }
 
-
+func NewCityHandler(cc *apiclients.CoordinatesClient) *CityHandler {
+	return &CityHandler{
+		cc: cc,
+	}
+}
 
 func (h *CityHandler) GetCity(ctx context.Context, req *proto.GetCityRequest) (*proto.GetCityResponse, error) {
 	reqCtx, cancel := context.WithTimeout(ctx, time.Second)

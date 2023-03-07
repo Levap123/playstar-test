@@ -6,6 +6,10 @@ type Configs struct {
 	Server struct {
 		Addr string `yaml:"addr"`
 	} `yaml:"server"`
+
+	Client struct {
+		TimeoutSeconds int `yaml:"timeout"`
+	} `yaml:"client"`
 }
 
 func GetConfigs() (*Configs, error) {
