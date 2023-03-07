@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./;proto";
+
+service CityService {
+    rpc GetCity(GetCityRequest) returns (GetCityResponse); 
+}
+
+message GetCityRequest {
+    float latitude = 1;  
+    float longitude = 2;
+}
+
+message GetCityResponse {
+    string city = 1;
+}
+

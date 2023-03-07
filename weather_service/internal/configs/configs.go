@@ -7,15 +7,17 @@ type Configs struct {
 		Addr string `yaml:"addr"`
 	} `yaml:"server"`
 
-	Mongo struct {
-		Addr     string `yaml:"addr"`
-		Password string `yaml:"password"`
-		Username string `yaml:"username"`
-	} `yaml:"mongo"`
+	WeatherApi struct {
+		Key string `yaml:"key"`
+	} `yaml:"weather_api"`
 
-	Redis struct {
+	Client struct {
+		TimeoutSeconds int `yaml:"timeout"`
+	} `yaml:"client"`
+
+	CityService struct {
 		Addr string `yaml:"addr"`
-	} `yaml:"redis"`
+	} `yaml:"city_service"`
 }
 
 func GetConfigs() (*Configs, error) {

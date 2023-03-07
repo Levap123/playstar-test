@@ -1,0 +1,11 @@
+server:
+  addr: :8282
+
+client:
+  timeout: 1
+
+weather_api:
+  key: TbSFJlzJVZ8DDZEnSgwMmcVOcAiDiPrs
+
+city_service:
+  addr: :8181
