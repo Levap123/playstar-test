@@ -27,7 +27,7 @@ func (wc *WeatherClient) GetWeather(ctx context.Context, city string) (entities.
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, URL, nil)
 	if err != nil {
-		return entities.Weather{}, fmt.Errorf("weather client - new request - %w", err) 
+		return entities.Weather{}, fmt.Errorf("weather client - new request - %w", err)
 	}
 
 	resp, err := wc.httpClient.Do(req)
@@ -35,6 +35,10 @@ func (wc *WeatherClient) GetWeather(ctx context.Context, city string) (entities.
 		return entities.Weather{}, fmt.Errorf("weather client - do request - %w", err)
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return entities.Weather{}, fmt.Errorf("weather client - do request - %w", ErrWeather)
+	}
 
 	respBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
