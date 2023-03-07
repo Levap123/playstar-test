@@ -45,7 +45,7 @@ func (h *CityHandler) GetCity(ctx context.Context, req *proto.GetCityRequest) (*
 		}
 	}
 
-	h.logger.Info().Msg("success in sending response")
+	h.logger.Info().Msgf("success in sending response, city - %s", city.City)
 	return &proto.GetCityResponse{
 		City: city.City,
 	}, nil
