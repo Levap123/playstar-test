@@ -10,8 +10,8 @@ import (
 	"time"
 
 	apiclients "github.com/Levap123/playstar-test/city_service/internal/api_clients"
-	"github.com/Levap123/playstar-test/city_service/internal/city"
 	"github.com/Levap123/playstar-test/city_service/internal/configs"
+	"github.com/Levap123/playstar-test/city_service/internal/handler"
 	"github.com/Levap123/playstar-test/city_service/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -29,7 +29,7 @@ func main() {
 
 	coordCl := apiclients.NewCoordinatesClient(client)
 
-	handler := city.NewCityHandler(coordCl)
+	handler := handler.NewCityHandler(coordCl)
 
 	listener, err := net.Listen("tcp", cfg.Server.Addr)
 	if err != nil {
