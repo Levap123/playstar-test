@@ -44,7 +44,7 @@ func (cc *CoordinatesClient) GetCityFromCoordiantes(ctx context.Context, latitud
 		return City{}, fmt.Errorf("coordinates client - get city - do request - %w", ErrInternal)
 	}
 
-	reqBytes, err := io.ReadAll(req.Body)
+	reqBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return City{}, fmt.Errorf("coordinates client - get city - read request - %w", err)
 	}
