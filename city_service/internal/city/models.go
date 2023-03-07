@@ -7,10 +7,6 @@ type Coordinates struct {
 	Longitude float32
 }
 
-type City struct {
-	City string `json:"city,omitempty"`
-}
-
 func FromProtoRequestToCoordinates(req *proto.GetCityRequest) Coordinates {
 	return Coordinates{
 		Latitude:  req.Latitude,
