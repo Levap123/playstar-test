@@ -14,6 +14,13 @@ type WeatherHandler struct {
 	wc *apiclients.WeatherClient
 }
 
+func NewWeatherHandler(cc *apiclients.CityClient, wc *apiclients.WeatherClient) *WeatherHandler {
+	return &WeatherHandler{
+		cc: cc,
+		wc: wc,
+	}
+}
+
 func (h *WeatherHandler) GetWeather(ctx context.Context, req *proto.GetWeatherRequest) (*proto.GetWeatherResponse, error) {
 	cityCtx, cityCancel := context.WithTimeout(ctx, time.Second)
 	defer cityCancel()

@@ -10,6 +10,14 @@ type Configs struct {
 	WeatherApi struct {
 		Key string `yaml:"key"`
 	} `yaml:"weather_api"`
+
+	Client struct {
+		TimeoutSeconds int `yaml:"timeout"`
+	} `yaml:"client"`
+
+	CityService struct {
+		Addr string `yaml:"addr"`
+	} `yaml:"city_service"`
 }
 
 func GetConfigs() (*Configs, error) {
