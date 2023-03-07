@@ -1,0 +1,5 @@
+server:
+  addr: :8181
+
+client:
+  timeout: 1
