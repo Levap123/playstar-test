@@ -27,23 +27,23 @@ func (wc *WeatherClient) GetWeather(ctx context.Context, city string) (entities.
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, URL, nil)
 	if err != nil {
-		return entities.Weather{}, err
+		return entities.Weather{}, fmt.Errorf("weather client - new request - %w", err) 
 	}
 
 	resp, err := wc.httpClient.Do(req)
 	if err != nil {
-		return entities.Weather{}, err
+		return entities.Weather{}, fmt.Errorf("weather client - do request - %w", err)
 	}
 	defer resp.Body.Close()
 
 	respBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return entities.Weather{}, err
+		return entities.Weather{}, fmt.Errorf("weather client - read response - %w", err)
 	}
 
 	var weatherResp entities.WeatherApiResponse
 	if err := json.Unmarshal(respBytes, &weatherResp); err != nil {
-		return entities.Weather{}, err
+		return entities.Weather{}, fmt.Errorf("weather client - unmarshal response - %w", err)
 	}
 
 	return entities.FromRespToWeather(weatherResp), nil
