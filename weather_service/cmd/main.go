@@ -23,7 +23,10 @@ import (
 )
 
 func main() {
-	logger := logs.New()
+	logger, err := logs.New()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// получаем конфиги с config.yml файла в структуру
 	cfg, err := configs.GetConfigs()
