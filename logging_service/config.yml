@@ -1,15 +1,12 @@
-server:
-  addr: :8181
-
 client:
   timeout: 1
 
 postgres:
   port: 5432
-  host: localhost
+  host: db
   password: root
   username: root
   db_name: logs
 
 rabbitmq:
-  addr: amqp://guest:guest@localhost:5672//
+  addr: amqp://guest:guest@rabbitmq:5672//
