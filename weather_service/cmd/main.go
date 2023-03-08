@@ -14,8 +14,10 @@ import (
 	"github.com/Levap123/playstar-test/weather_service/internal/configs"
 	"github.com/Levap123/playstar-test/weather_service/internal/handler"
 	"github.com/Levap123/playstar-test/weather_service/internal/logs"
+	"github.com/Levap123/playstar-test/weather_service/internal/producer"
 	"github.com/Levap123/playstar-test/weather_service/internal/validator"
 	"github.com/Levap123/playstar-test/weather_service/proto"
+	"github.com/streadway/amqp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
@@ -44,6 +46,28 @@ func main() {
 		logger.Fatal().Err(err).Msg("fatal in connecting to the city service")
 	}
 	defer connCitysrv.Close()
+
+	// подключаемся к rabbitmq серверу
+	connRabbitMQ, err := amqp.Dial(cfg.RabbitMQ.Addr)
+	if err != nil {
+		logger.Fatal().Err(err).Msg("fatal in connecting to rabbitmq")
+	}
+
+	// открываем канал
+	mqChan, err := connRabbitMQ.Channel()
+	if err != nil {
+		logger.Fatal().Err(err).Msg("fatal in openning channel from rabbitmq")
+	}
+
+	// создаем инстанс, который будет отправлять сообщения в mq
+	producer, err := producer.NewProducer(mqChan, logger)
+	if err != nil {
+		logger.Fatal().Err(err).Msg("fatal in creating producer")
+
+	}
+
+	// будет отправлять сообщения в mq
+	go producer.Produce()
 
 	// клиент для отправления реквестов на сторонее апи
 	wclient := &http.Client{
@@ -86,6 +110,15 @@ func main() {
 	<-quit
 
 	srv.GracefulStop()
+
+	if err := mqChan.Close(); err != nil {
+		logger.Fatal().Err(err).Msg("fatal in closing mq channel connection")
+	}
+
+	if err := connRabbitMQ.Close(); err != nil {
+		logger.Fatal().Err(err).Msg("fatal in closing rabbit connection")
+
+	}
 
 	logger.Info().Msg("server stopped")
 }

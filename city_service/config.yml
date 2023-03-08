@@ -3,3 +3,6 @@ server:
 
 client:
   timeout: 1
+
+rabbitmq:
+  addr: amqp://guest:guest@localhost:5672//

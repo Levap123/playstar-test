@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net"
 	"net/http"
 	"os"
@@ -12,19 +13,46 @@ import (
 	"github.com/Levap123/playstar-test/city_service/internal/configs"
 	"github.com/Levap123/playstar-test/city_service/internal/handler"
 	"github.com/Levap123/playstar-test/city_service/internal/logs"
+	"github.com/Levap123/playstar-test/city_service/internal/producer"
 	"github.com/Levap123/playstar-test/city_service/proto"
+	"github.com/streadway/amqp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
 func main() {
-	logger := logs.New()
+	logger, err := logs.New()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// получаем конфиги с config.yml файла в структуру
 	cfg, err := configs.GetConfigs()
 	if err != nil {
 		logger.Fatal().Err(err).Msg("fatal in getting configs")
 	}
+
+	// подключаемся к rabbitmq серверу
+	connRabbitMQ, err := amqp.Dial(cfg.RabbitMQ.Addr)
+	if err != nil {
+		logger.Fatal().Err(err).Msg("fatal in connecting to rabbitmq")
+	}
+
+	// открываем канал
+	mqChan, err := connRabbitMQ.Channel()
+	if err != nil {
+		logger.Fatal().Err(err).Msg("fatal in openning channel from rabbitmq")
+	}
+
+	// создаем инстанс, который будет отправлять сообщения в mq
+	producer, err := producer.NewProducer(mqChan, logger)
+	if err != nil {
+		logger.Fatal().Err(err).Msg("fatal in creating producer")
+
+	}
+
+	// будет отправлять сообщения в mq
+	go producer.Produce()
 
 	// создаем клиента для отправки реквество на стороннее апи
 	client := &http.Client{
@@ -61,6 +89,14 @@ func main() {
 
 	<-quit
 
+	if err := mqChan.Close(); err != nil {
+		logger.Fatal().Err(err).Msg("fatal in closing mq channel connection")
+	}
+
+	if err := connRabbitMQ.Close(); err != nil {
+		logger.Fatal().Err(err).Msg("fatal in closing rabbit connection")
+
+	}
 	srv.GracefulStop()
 
 	logger.Info().Msg("server stopped")

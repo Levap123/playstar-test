@@ -9,3 +9,6 @@ weather_api:
 
 city_service:
   addr: :8181
+
+rabbitmq:
+  addr: amqp://guest:guest@localhost:5672//
