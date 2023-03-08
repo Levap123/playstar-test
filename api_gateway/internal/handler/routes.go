@@ -9,7 +9,7 @@ import (
 func (h *Handler) InitRoutes() http.Handler {
 	r := chi.NewMux()
 
-	r.Get("api/v1/weather", h.getWeatherByCoordinates)
+	r.Get("/api/v1/weather", h.getWeatherByCoordinates)
 
 	return r
 }

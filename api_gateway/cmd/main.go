@@ -41,18 +41,31 @@ func main() {
 
 	handler := handler.NewHandler(weatherClient)
 
+	srv := &http.Server{
+		Addr:    cfg.Server.Addr,
+		Handler: handler.InitRoutes(),
+	}
 	log.Println("server started")
 	go func() {
-		if err := http.ListenAndServe(cfg.Server.Addr, handler.InitRoutes()); err != nil {
+		if err := srv.ListenAndServe(); err != nil {
 			log.Fatal(err)
 		}
 	}()
 
+	// graceful shutdown
 	quit := make(chan os.Signal)
 
 	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
 
+	<- quit
 	if err := connWeathersrv.Close(); err != nil {
+		log.Fatal(err)
+	}
+
+	ctxShutdown, cancelShutdonw := context.WithTimeout(context.Background(), time.Second)
+	defer cancelShutdonw()
+
+	if err := srv.Shutdown(ctxShutdown); err != nil {
 		log.Fatal(err)
 	}
 }

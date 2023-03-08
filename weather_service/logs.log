@@ -4,3 +4,6 @@
 {"level":"error","service":"weather","error":"expected values are in [-180, 180] range","time":"2023-03-08T18:15:26+06:00","caller":"/home/pavel/CODE/playstar-test/weather_service/internal/handler/handler.go:40","message":"coordinates incorrect"}
 {"level":"info","service":"weather","time":"2023-03-08T18:16:53+06:00","caller":"/home/pavel/CODE/playstar-test/weather_service/internal/handler/handler.go:34","message":"get weather handler"}
 {"level":"error","service":"weather","error":"expected values are in [-180, 180] range","time":"2023-03-08T18:16:53+06:00","caller":"/home/pavel/CODE/playstar-test/weather_service/internal/handler/handler.go:40","message":"coordinates incorrect"}
+{"level":"fatal","service":"weather","error":"Exception (504) Reason: \"channel/connection is not open\"","time":"2023-03-08T18:19:53+06:00","caller":"/home/pavel/CODE/playstar-test/weather_service/cmd/main.go:118","message":"fatal in closing mq channel connection"}
+{"level":"info","service":"weather","time":"2023-03-08T23:18:15+06:00","caller":"/home/pavel/CODE/playstar-test/weather_service/cmd/main.go:126","message":"server stopped"}
+{"level":"info","service":"weather","time":"2023-03-08T23:18:16+06:00","caller":"/home/pavel/CODE/playstar-test/weather_service/cmd/main.go:106","message":"server started on: :8282"}
