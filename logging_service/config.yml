@@ -10,3 +10,6 @@ postgres:
   password: root
   username: root
   db_name: users
+
+rabbitmq:
+  addr: amqp://guest:guest@localhost:5672//
