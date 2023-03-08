@@ -36,7 +36,7 @@ func NewConsumer(mqChan *amqp.Channel, logger *logs.Logger, repo ILogsRepo) (*Co
 	return &Consumer{
 		delivery: messages,
 		logger:   logger,
-		repo: repo,
+		repo:     repo,
 	}, nil
 }
 
@@ -51,6 +51,6 @@ func (c *Consumer) Consume() {
 			continue
 		}
 
-		c.repo.Insert(logMsg)
+		go c.repo.Insert(logMsg)
 	}
 }

@@ -103,7 +103,7 @@ func main() {
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
 
-	log.Printf("server started on: %s", cfg.Server.Addr)
+	logger.Info().Msgf("server started on: %s", cfg.Server.Addr)
 	go func() {
 		if err := srv.Serve(listener); err != nil {
 			logger.Fatal().Err(err).Msg("fatal in starting server")

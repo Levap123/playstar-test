@@ -5,3 +5,12 @@
 {"level":"info","service":"city","time":"2023-03-08T18:11:33+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/cmd/main.go:83","message":"server started on: :8181"}
 {"level":"info","service":"city","time":"2023-03-08T18:15:02+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/cmd/main.go:83","message":"server started on: :8181"}
 {"level":"info","service":"city","time":"2023-03-08T18:17:16+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/cmd/main.go:102","message":"server stopped"}
+{"level":"info","service":"city","time":"2023-03-08T23:17:30+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/cmd/main.go:83","message":"server started on: :8181"}
+{"level":"info","service":"city","time":"2023-03-08T23:19:50+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/cmd/main.go:102","message":"server stopped"}
+{"level":"info","service":"city","time":"2023-03-08T23:19:56+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/cmd/main.go:83","message":"server started on: :8181"}
+{"level":"debug","service":"city","time":"2023-03-08T23:27:07+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/internal/handler/handler.go:29","message":"get city handler"}
+{"level":"info","service":"city","time":"2023-03-08T23:27:08+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/internal/handler/handler.go:48","message":"success in sending response, city - "}
+{"level":"debug","service":"city","time":"2023-03-08T23:28:39+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/internal/handler/handler.go:29","message":"get city handler"}
+{"level":"info","service":"city","time":"2023-03-08T23:28:39+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/internal/handler/handler.go:48","message":"success in sending response, city - "}
+{"level":"debug","service":"city","time":"2023-03-08T23:29:35+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/internal/handler/handler.go:29","message":"get city handler"}
+{"level":"info","service":"city","time":"2023-03-08T23:29:35+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/internal/handler/handler.go:48","message":"success in sending response, city - "}
