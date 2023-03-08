@@ -1,0 +1,94 @@
+version: "3.8"
+services:
+
+  db:
+    image: postgres:14.3
+    environment:
+      POSTGRES_DB: logs
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    networks:
+      - default
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 5432:5432
+
+  weather_service:
+    build: weather_service
+    ports:
+      - 8282:8282
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    user: root
+    networks:
+      - default
+
+  city_service:
+    build: weather_service
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - 8181:8181
+    user: root
+    networks:
+      - default
+
+  logging_service:
+    build: logging_service
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    user: root
+    networks:
+      - default
+
+  api_gateway:
+    build: api_gateway
+    ports:
+      - 5000:5000
+    networks:
+      - default
+    depends_on:
+      - weather_service
+    user: root
+
+  rabbitmq:
+    image: rabbitmq:3.8-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    logging:
+      driver: none
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+  migrate:
+    image: migrate/migrate
+    volumes:
+       - ./migrations:/migrations
+    depends_on:
+      db:
+        condition: service_healthy
+    command:
+      [
+        "-path",
+        "/migrations",
+        "-database",
+        "postgresql://root:root@db:5432/logs?sslmode=disable",
+        "up",
+        "3"
+      ]
