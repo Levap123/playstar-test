@@ -8,6 +8,7 @@ import (
 	"github.com/Levap123/playstar-test/logging_service/internal/configs"
 	"github.com/Levap123/playstar-test/logging_service/internal/mq"
 	"github.com/Levap123/playstar-test/logging_service/logs"
+	"github.com/rs/zerolog/log"
 )
 
 func main() {
@@ -39,6 +40,8 @@ func main() {
 
 	// запускаем получение сообщение с очереди в горутине
 	go consumer.Consume()
+
+	log.Info().Msg("server is ready to accept message from queue!")
 
 	// gracefull shutdown
 	quit := make(chan os.Signal)
