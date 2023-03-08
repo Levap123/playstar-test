@@ -3,4 +3,4 @@ server:
 
 
 weather_service:
-  addr: :8181
+  addr: :8282

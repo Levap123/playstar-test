@@ -23,6 +23,8 @@ func (h *Handler) getWeatherByCoordinates(w http.ResponseWriter, r *http.Request
 	if err := json.Unmarshal(reqBytes, &dto); err != nil {
 		errBytes := marshal(map[string]string{"error": err.Error()})
 		sendJSON(w, errBytes, http.StatusBadRequest)
+		return
+
 	}
 
 	ctx, cancel := context.WithTimeout(r.Context(), time.Second*2)
@@ -32,6 +34,8 @@ func (h *Handler) getWeatherByCoordinates(w http.ResponseWriter, r *http.Request
 	if err != nil {
 		errBytes := marshal(map[string]string{"error": err.Error()})
 		sendJSON(w, errBytes, http.StatusBadRequest)
+		return
+
 	}
 
 	respBytes := marshal(resp)
