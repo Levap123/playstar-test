@@ -1,0 +1,6 @@
+server:
+  addr: :5000
+
+
+weather_api:
+  addr: :8282
