@@ -1,0 +1,8 @@
+server:
+  addr: :8181
+
+client:
+  timeout: 1
+
+rabbitmq:
+  addr: amqp://guest:guest@rabbitmq:5672//
