@@ -18,7 +18,7 @@ type ILogsRepo interface {
 	Insert(logMsg entities.LogMessage)
 }
 
-func NewConsumer(mqChan *amqp.Channel) (*Consumer, error) {
+func NewConsumer(mqChan *amqp.Channel, logger *logs.Logger, repo ILogsRepo) (*Consumer, error) {
 	messages, err := mqChan.Consume(
 		"logs",
 		"",
@@ -35,6 +35,8 @@ func NewConsumer(mqChan *amqp.Channel) (*Consumer, error) {
 
 	return &Consumer{
 		delivery: messages,
+		logger:   logger,
+		repo: repo,
 	}, nil
 }
 

@@ -11,19 +11,17 @@ type LogsRepo struct {
 	logger *logs.Logger
 }
 
-// type LogMessage struct {
-// 	Level   string `json:"level"`
-// 	Service string `json:"service"`
-// 	Error   string `json:"error"`
-// 	Time    string `json:"time"`
-// 	Caller  string `json:"caller"`
-// 	Message string `json:"message"`
-// }
+func NewLogsRepo(DB *sqlx.DB, logger *logs.Logger) *LogsRepo {
+	return &LogsRepo{
+		DB:     DB,
+		logger: logger,
+	}
+}
 
 func (lr *LogsRepo) Insert(logMsg entities.LogMessage) {
 	query := `INSERT INTO logs (level, service, error, time, caller, message) 
 	VALUES (:level, :service, :error, :time, :caller, :message);`
-	
+
 	if _, err := lr.DB.NamedExec(query, logMsg); err != nil {
 		lr.logger.Err(err).Msg("error in inserting log message to DB")
 	}
