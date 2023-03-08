@@ -13,7 +13,7 @@ type Logger struct {
 func New() *Logger {
 	logger := zerolog.New(os.Stdout).With().
 		Timestamp().
-		Str("service", "weather").
+		Str("service", "logging").
 		Caller().
 		Logger()
 	return &Logger{

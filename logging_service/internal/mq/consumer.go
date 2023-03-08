@@ -3,11 +3,13 @@ package mq
 import (
 	"fmt"
 
+	"github.com/Levap123/playstar-test/logging_service/logs"
 	"github.com/streadway/amqp"
 )
 
 type Consumer struct {
 	delivery <-chan amqp.Delivery
+	logger   *logs.Logger
 }
 
 func NewConsumer(mqChan *amqp.Channel) (*Consumer, error) {
@@ -32,6 +34,6 @@ func NewConsumer(mqChan *amqp.Channel) (*Consumer, error) {
 
 func (c *Consumer) Consume() {
 	for msg := range c.delivery {
-		fmt.Println(msg)
+		fmt.Println(msg.Body)
 	}
 }
