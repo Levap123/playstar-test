@@ -11,6 +11,11 @@ import (
 type Consumer struct {
 	delivery <-chan amqp.Delivery
 	logger   *logs.Logger
+	repo     ILogsRepo
+}
+
+type ILogsRepo interface {
+	Insert(logMsg entities.LogMessage)
 }
 
 func NewConsumer(mqChan *amqp.Channel) (*Consumer, error) {
@@ -44,5 +49,6 @@ func (c *Consumer) Consume() {
 			continue
 		}
 
+		c.repo.Insert(logMsg)
 	}
 }

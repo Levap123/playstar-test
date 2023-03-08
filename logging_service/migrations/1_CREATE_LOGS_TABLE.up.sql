@@ -1,0 +1,11 @@
+
+
+CREATE TABLE logs (
+  id SERIAL PRIMARY KEY,
+  level VARCHAR(50) NOT NULL,
+  service VARCHAR(50) NOT NULL,
+  error VARCHAR(255) NOT NULL,
+  time TIMESTAMP NOT NULL,
+  caller VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL
+);
