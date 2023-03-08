@@ -2,3 +2,4 @@
 {"level":"debug","service":"city","time":"2023-03-08T18:07:17+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/internal/handler/handler.go:29","message":"get city handler"}
 {"level":"error","service":"city","error":"coordinates client - get city - do request - bad request","time":"2023-03-08T18:07:17+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/internal/handler/handler.go:36","message":"something went wrong in get city handler"}
 {"level":"info","service":"city","time":"2023-03-08T18:07:26+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/cmd/main.go:94","message":"server stopped"}
+{"level":"info","service":"city","time":"2023-03-08T18:11:33+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/cmd/main.go:83","message":"server started on: :8181"}

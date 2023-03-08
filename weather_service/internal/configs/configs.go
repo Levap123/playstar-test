@@ -18,6 +18,10 @@ type Configs struct {
 	CityService struct {
 		Addr string `yaml:"addr"`
 	} `yaml:"city_service"`
+
+	RabbitMQ struct {
+		Addr string `yaml:"addr"`
+	} `yaml:"rabbitmq"`
 }
 
 func GetConfigs() (*Configs, error) {

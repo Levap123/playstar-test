@@ -39,13 +39,13 @@ func main() {
 	}
 
 	// открываем канал
-	channelRabbitMQ, err := connRabbitMQ.Channel()
+	mqChan, err := connRabbitMQ.Channel()
 	if err != nil {
 		logger.Fatal().Err(err).Msg("fatal in openning channel from rabbitmq")
 	}
 
 	// создаем инстанс, который будет отправлять сообщения в mq
-	producer, err := producer.NewProducer(channelRabbitMQ, logger)
+	producer, err := producer.NewProducer(mqChan, logger)
 	if err != nil {
 		logger.Fatal().Err(err).Msg("fatal in creating producer")
 
@@ -89,6 +89,14 @@ func main() {
 
 	<-quit
 
+	if err := mqChan.Close(); err != nil {
+		logger.Fatal().Err(err).Msg("fatal in closing mq channel connection")
+	}
+
+	if err := connRabbitMQ.Close(); err != nil {
+		logger.Fatal().Err(err).Msg("fatal in closing rabbit connection")
+
+	}
 	srv.GracefulStop()
 
 	logger.Info().Msg("server stopped")
