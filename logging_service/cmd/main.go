@@ -57,4 +57,6 @@ func main() {
 		logger.Fatal().Err(err).Msg("fatal in closing rabbit connection")
 
 	}
+
+	logger.Info().Msg("server stopped")
 }

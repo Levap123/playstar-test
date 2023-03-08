@@ -1,8 +1,9 @@
 package mq
 
 import (
-	"fmt"
+	"encoding/json"
 
+	"github.com/Levap123/playstar-test/logging_service/entities"
 	"github.com/Levap123/playstar-test/logging_service/logs"
 	"github.com/streadway/amqp"
 )
@@ -33,7 +34,15 @@ func NewConsumer(mqChan *amqp.Channel) (*Consumer, error) {
 }
 
 func (c *Consumer) Consume() {
+	c.logger.Info().Msg("started consuming messages from queue...")
+
+	var logMsg entities.LogMessage
 	for msg := range c.delivery {
-		fmt.Println(msg.Body)
+
+		if err := json.Unmarshal(msg.Body, &logMsg); err != nil {
+			c.logger.Err(err).Msg("error in unmarshalling message from queue")
+			continue
+		}
+
 	}
 }

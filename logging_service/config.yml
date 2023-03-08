@@ -9,7 +9,7 @@ postgres:
   host: localhost
   password: root
   username: root
-  db_name: users
+  db_name: logs
 
 rabbitmq:
   addr: amqp://guest:guest@localhost:5672//
