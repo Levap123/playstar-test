@@ -10,6 +10,10 @@ type Configs struct {
 	Client struct {
 		TimeoutSeconds int `yaml:"timeout"`
 	} `yaml:"client"`
+
+	RabbitMQ struct {
+		Addr string `yaml:"addr"`
+	} `yaml:"rabbitmq"`
 }
 
 func GetConfigs() (*Configs, error) {
