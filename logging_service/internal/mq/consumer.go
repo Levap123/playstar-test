@@ -28,7 +28,6 @@ func NewConsumer(mqChan *amqp.Channel, logger *logs.Logger, repo ILogsRepo) (*Co
 		false,
 		nil,
 	)
-
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +49,6 @@ func (c *Consumer) Consume() {
 			c.logger.Err(err).Msg("error in unmarshalling message from queue")
 			continue
 		}
-
 		go c.repo.Insert(logMsg)
 	}
 }

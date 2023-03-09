@@ -12,7 +12,6 @@ type Producer struct {
 }
 
 func NewProducer(channel *amqp.Channel, logger *logs.Logger) (*Producer, error) {
-
 	_, err := channel.QueueDeclare(
 		"logs",
 		true,
@@ -21,7 +20,6 @@ func NewProducer(channel *amqp.Channel, logger *logs.Logger) (*Producer, error) 
 		false,
 		nil,
 	)
-
 	if err != nil {
 		return nil, err
 	}
@@ -52,5 +50,4 @@ func (p *Producer) Produce() {
 			p.logger.Err(err).Msg("error in publish message to mq")
 		}
 	}
-
 }
