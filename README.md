@@ -8,4 +8,4 @@ make build && make run
 ```
 
 ## Example 
-    ![alt text](https://github.com/Levap123/playstar-test/blob/master/request-example.jpg)
+![alt text](https://github.com/Levap123/playstar-test/blob/master/request-example.jpg)
