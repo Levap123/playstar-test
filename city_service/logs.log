@@ -14,3 +14,5 @@
 {"level":"info","service":"city","time":"2023-03-08T23:28:39+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/internal/handler/handler.go:48","message":"success in sending response, city - "}
 {"level":"debug","service":"city","time":"2023-03-08T23:29:35+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/internal/handler/handler.go:29","message":"get city handler"}
 {"level":"info","service":"city","time":"2023-03-08T23:29:35+06:00","caller":"/home/pavel/CODE/playstar-test/city_service/internal/handler/handler.go:48","message":"success in sending response, city - "}
+{"level":"fatal","service":"city","error":"dial tcp: lookup rabbitmq on 127.0.0.53:53: server misbehaving","time":"2023-03-09T12:26:40+06:00","caller":"/home/student/code/playstar-test/city_service/cmd/main.go:38","message":"fatal in connecting to rabbitmq"}
+{"level":"fatal","service":"city","error":"listen tcp :8181: bind: address already in use","time":"2023-03-09T12:27:00+06:00","caller":"/home/student/code/playstar-test/city_service/cmd/main.go:71","message":"fatal in listen"}

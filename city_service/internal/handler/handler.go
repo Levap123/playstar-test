@@ -33,7 +33,7 @@ func (h *CityHandler) GetCity(ctx context.Context, req *proto.GetCityRequest) (*
 
 	city, err := h.cc.GetCityFromCoordiantes(reqCtx, req.Latitude, req.Longitude)
 	if err != nil {
-		h.logger.Err(err).Msg("something went wrong in get city handler")
+		h.logger.Err(err).Msg("something went wrong in get city coordinates")
 
 		switch {
 		case errors.Is(err, apiclients.ErrBadRequest):

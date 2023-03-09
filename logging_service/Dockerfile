@@ -15,8 +15,6 @@ WORKDIR /app
 COPY --from=build /app/main .
 COPY --from=build /app/config.yml . 
 
-EXPOSE 8080
-
 USER root:root
 
 ENTRYPOINT ["./main"]

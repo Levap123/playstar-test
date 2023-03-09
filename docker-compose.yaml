@@ -29,7 +29,7 @@ services:
       - default
 
   city_service:
-    build: weather_service
+    build: city_service
     depends_on:
       rabbitmq:
         condition: service_healthy
